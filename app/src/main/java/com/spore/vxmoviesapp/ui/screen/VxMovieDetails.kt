@@ -209,7 +209,7 @@ fun MovieDetails(navController: NavHostController, movieId: Long) {
                     )
                 }
             }
-            VxAppBarWithBack(false, Modifier.padding(1.dp), navController)
+            VxAppBarWithBack(false, Modifier.padding(1.dp), navController,"")
         }
     }
 }

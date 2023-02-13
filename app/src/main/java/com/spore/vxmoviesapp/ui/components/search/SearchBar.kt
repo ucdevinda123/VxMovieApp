@@ -75,7 +75,7 @@ fun SearchBar(
                 Row {
 
                     IconButton(onClick = {
-
+                         onSearch()
                     }) {
                         Icon(
                             imageVector = Icons.Outlined.Search,

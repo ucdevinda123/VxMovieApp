@@ -13,26 +13,32 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.spore.vxmoviesapp.ui.components.appbar.VxAppBarWithBack
+import com.spore.vxmoviesapp.ui.components.searchgrid.VxMovieGrid
 import com.spore.vxmoviesapp.ui.viewmodel.SearchViewModel
 
 @Composable
-fun SearchMovies(navController: NavHostController, onNavigate:(id:Long)->Unit) {
+fun SearchMovies(navController: NavHostController, onNavigate: (id: Long) -> Unit) {
     val searchViewModel: SearchViewModel = hiltViewModel()
-    val movieDetailsState = searchViewModel.searchState.value.collectAsLazyPagingItems()
+    searchViewModel.search("ss")
 
     Scaffold {
         Column(modifier = Modifier.fillMaxSize()) {
             val homeScreenScrollState = rememberScrollState()
+            val movieDetailsState = searchViewModel.searchState.value.collectAsLazyPagingItems()
 
-            VxAppBarWithBack(false, Modifier.padding(1.dp), navController)
+            VxAppBarWithBack(false, Modifier.padding(1.dp), navController,"Search")
 
             SearchBar(
                 autoFocus = true,
                 viewModel = searchViewModel,
                 onSearch = {
-                    searchViewModel.search("ss")
+                    searchViewModel.search("dj")
                 }
             )
+
+            VxMovieGrid("Movies and Tv Shows", movieDetailsState, 3, onItemClick = {
+                onNavigate(it)
+            })
         }
     }
 }
