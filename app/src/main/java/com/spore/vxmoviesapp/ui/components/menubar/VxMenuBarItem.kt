@@ -16,8 +16,10 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun VxMenuBarItem(
     text: String,
-    modifier: Modifier
+    modifier: Modifier,
+    onMenuItemTap: (type: String) -> Unit
 ) {
+
     Text(
         text = text,
         textAlign = TextAlign.Center,
@@ -30,7 +32,9 @@ fun VxMenuBarItem(
         ),
         modifier = modifier
             .padding(5.dp)
-            .clickable { }
+            .clickable {
+                onMenuItemTap(text)
+            }
 
     )
 }

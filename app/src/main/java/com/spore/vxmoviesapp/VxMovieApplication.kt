@@ -1,6 +1,7 @@
 package com.spore.vxmoviesapp
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-class VxMovieApplication : Application() {
-}
+@HiltAndroidApp
+class VxMovieApplication : Application()

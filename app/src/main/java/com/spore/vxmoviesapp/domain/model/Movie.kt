@@ -1,4 +1,4 @@
-package com.spore.vxmoviesapp.data.model
+package com.spore.vxmoviesapp.domain.model
 
 data class Movie(
     val id: Long,
@@ -14,5 +14,6 @@ data class Movie(
     val releaseDate: String,
     val isVideoAvailable: Boolean,
     val avgVote: Double,
-    val voteCount: Int
+    val voteCount: Int,
+    val runtime: Int
 )
