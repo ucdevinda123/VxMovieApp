@@ -20,8 +20,11 @@ class SearchViewModel @Inject constructor(val searchUseCase: SearchUseCase) : Vi
     private var _searchResult = mutableStateOf<Flow<PagingData<Movie>>>(emptyFlow())
     val searchState: State<Flow<PagingData<Movie>>> = _searchResult
 
+    private var _searchQuery = mutableStateOf("")
+    val searchQueryState: State<String> = _searchQuery
+
     fun search(searchText : String){
-        viewModelScope.launch {
+        viewModelScope.launch { _searchQuery.value = searchText
            val searchResponse =  searchUseCase.search(searchText).cachedIn(viewModelScope)
             _searchResult.value = searchResponse
         }

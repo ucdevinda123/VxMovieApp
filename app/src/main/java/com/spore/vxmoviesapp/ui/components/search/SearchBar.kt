@@ -39,8 +39,9 @@ fun SearchBar(
 
 
         TextField(
-            value = "",
+            value = viewModel.searchQueryState.value,
             onValueChange = {
+                viewModel.search(it)
             },
             modifier = Modifier
                 .fillMaxSize(),
@@ -48,7 +49,7 @@ fun SearchBar(
             placeholder = {
                 Text(
                     text = stringResource(id = R.string.search_hint),
-                    color = Color.DarkGray.copy(alpha = 0.8F)
+                    color = Color.White.copy(alpha = 0.8F)
                 )
             },
             colors = textFieldColors(
@@ -64,7 +65,7 @@ fun SearchBar(
             ),
             keyboardActions = KeyboardActions(
                 onSearch = {
-
+                    viewModel.search(viewModel.searchQueryState.value)
                 }
             ),
             trailingIcon = {
