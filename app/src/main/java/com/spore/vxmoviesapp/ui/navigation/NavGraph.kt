@@ -12,6 +12,7 @@ import androidx.navigation.compose.navArgument
 import com.spore.vxmoviesapp.ui.screen.MovieDetails
 import com.spore.vxmoviesapp.ui.screen.SearchMovies
 import com.spore.vxmoviesapp.ui.screen.VxMovieHome
+import com.spore.vxmoviesapp.ui.screen.VxMyList
 
 @Composable
 fun SetUpNavGraph(navController: NavHostController) {
@@ -22,6 +23,9 @@ fun SetUpNavGraph(navController: NavHostController) {
             },
                 onSearchNavigate = {
                     navController.navigate(route = Screen.SearchScreen.route)
+                },
+                onMyListNavigate = {
+                    navController.navigate(route = Screen.MyListScreen.route)
                 }
             )
         }
@@ -35,6 +39,12 @@ fun SetUpNavGraph(navController: NavHostController) {
 
         composable(route = Screen.SearchScreen.route) {
             SearchMovies(navController = navController, onNavigate = { movieId ->
+                navController.navigate(route = Screen.MovieDetailScreen.route)
+            })
+        }
+
+        composable(route = Screen.MyListScreen.route) {
+            VxMyList(navController = navController, onNavigate = { movieId ->
                 navController.navigate(route = Screen.MovieDetailScreen.route)
             })
         }

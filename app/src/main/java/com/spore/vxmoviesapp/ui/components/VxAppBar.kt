@@ -8,9 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.List
-import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,7 +20,8 @@ import com.spore.vxmoviesapp.R
 
 @Composable
 fun VxAppBar(
-    onSearchItemTap: ()->Unit
+    onSearchItemTap: ()->Unit,
+    onMyListItemTap: ()->Unit
 ) {
     Row(Modifier.padding(start = 8.dp)) {
         Box(
@@ -56,7 +55,9 @@ fun VxAppBar(
 
         Box(modifier = Modifier
             .weight(1f)
-            .clickable { }
+            .clickable {
+                onMyListItemTap()
+            }
         ) {
             Icon(
                 imageVector = Icons.Outlined.List,

@@ -28,7 +28,7 @@ import com.spore.vxmoviesapp.ui.viewmodel.HomeViewModel
 import com.spore.vxmoviesapp.ui.viewmodel.MainBannerViewModel
 
 @Composable
-fun VxMovieHome(onNavigate:(id:Long)-> Unit, onSearchNavigate:()->Unit) {
+fun VxMovieHome(onNavigate:(id:Long)-> Unit, onSearchNavigate:()->Unit,onMyListNavigate:()->Unit) {
     val homeScreenScrollState = rememberScrollState()
     val homeViewModel: HomeViewModel = hiltViewModel()
     homeViewModel.getPopularMovies()
@@ -50,6 +50,8 @@ fun VxMovieHome(onNavigate:(id:Long)-> Unit, onSearchNavigate:()->Unit) {
             }
             VxTopBar(isScrolledDown.value, onSearchItemTap = {
                   onSearchNavigate()
+            }, onMyListItemTap = {
+                onMyListNavigate()
             })
         }
     }
@@ -116,7 +118,8 @@ fun MainMovieLayout(mainBannerViewModel: MainBannerViewModel = hiltViewModel()) 
 fun VxTopBar(
     isScrollingDown: Boolean,
     modifier: Modifier = Modifier,
-    onSearchItemTap:()->Unit
+    onSearchItemTap:()->Unit,
+    onMyListItemTap:()->Unit
 ) {
     Surface(
         modifier = modifier
@@ -133,6 +136,8 @@ fun VxTopBar(
                 Spacer(modifier = Modifier.height(5.dp))
                 VxAppBar(onSearchItemTap = {
                     onSearchItemTap()
+                }, onMyListItemTap = {
+                    onMyListItemTap()
                 })
                 Spacer(modifier = Modifier.height(10.dp))
                 AnimatedVisibility(visible = isScrollingDown.not()) {
