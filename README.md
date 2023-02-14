@@ -16,14 +16,14 @@ This Movie App is created to demonstrate skills on JetPack Compose.
 
 
 ### Screens
-VxAppDemo Home              |  Home One                     |     Home Items Two                         | Home Items Three |
-:-------------------------:|:-------------------------: | :-------------------------: |:-------------------------: 
-<img src="screenshots/home_one.jpeg" width=240 />  |  <img src="screenshots/home_two.jpeg" width=240 /> | <img src="screenshots/home_three.jpeg" width=240 />
-<img src="screenshots/home_four.jpeg" width=240 /> |  <img src="screenshots/home_five.jpeg" width=240 />
+VxHome Banner With Menu    |  VxHome Banner Without Menu  |     Home Top Rated                         | Home Upcoming | Home Now Playing
+:-------------------------:|:-------------------------: | :-------------------------: |:-------------------------: |:-------------------------: 
+<img src="screenshots/home_one.jpeg" width=240 />  |  <img src="screenshots/home_two.jpeg" width=240 /> | <img src="screenshots/home_three.jpeg" width=240 /> |<img src="screenshots/home_four.jpeg" width=240 />  |  <img src="screenshots/home_five.jpeg" width=240 />
 
-Movie Details             |  Movie Details |
-:-------------------------:|:-------------------------: | 
 
+Movie Details             |  
+:-------------------------:
+<img src="screenshots/movie_details.jpeg" width=240 />
 
 Search Empty               |  Search With Data          |
 :-------------------------:|:-------------------------: | 
@@ -32,8 +32,7 @@ Search Empty               |  Search With Data          |
 
 My List Empty               |  MyList With Data          |
 :-------------------------:|:-------------------------: | 
-<img src="screenshots/mylist.jpeg" width=240 /> | <img src="screenshots/mylist.jpeg" width=240 />
-
+<img src="screenshots/my_list_empty.jpeg" width=240 /> | <img src="screenshots/my_list.jpeg" width=240 />
 
 
 
