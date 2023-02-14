@@ -10,7 +10,7 @@ class VxBannerMovieRepositoryImpl @Inject constructor(var vxMovieApi: RetrofitMo
     override suspend fun getTrendingMovies(): Resource<Movie> {
         val resultList = vxMovieApi.getTrendingMovies().results
         if (resultList.isNotEmpty()) {
-            return Resource.Success(data = resultList[4].asDomainModel())
+            return Resource.Success(data = resultList[3].asDomainModel())
         }
         return Resource.Error("No movies to display")
 

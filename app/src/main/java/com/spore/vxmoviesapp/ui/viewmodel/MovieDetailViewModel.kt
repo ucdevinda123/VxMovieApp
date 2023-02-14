@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.spore.vxmoviesapp.domain.model.Movie
 import com.spore.vxmoviesapp.domain.usecases.MovieDetailsUseCase
-import com.spore.vxmoviesapp.domain.usecases.TrendingBannerUseCase
 import com.spore.vxmoviesapp.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -26,7 +25,7 @@ class MovieDetailViewModel @Inject constructor(
                     _detailMovie.value = response.data
                 }
                 else -> {
-                    Resource.Error("Unable to retrive movie details")
+                    Resource.Error("Unable to get movie details")
                 }
             }
 

@@ -13,6 +13,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.runtime.Composable
@@ -35,13 +36,19 @@ import com.spore.vxmoviesapp.ui.components.VxRoundedImage
 import com.spore.vxmoviesapp.ui.components.appbar.VxAppBarWithBack
 import com.spore.vxmoviesapp.ui.components.imageholders.VxLargeBannerMovieItem
 import com.spore.vxmoviesapp.ui.viewmodel.MovieDetailViewModel
+import com.spore.vxmoviesapp.ui.viewmodel.MyListViewModel
 import com.spore.vxmoviesapp.util.DateUtils
 
 @Composable
 fun MovieDetails(navController: NavHostController, movieId: Long) {
     val movieDetailViewModel: MovieDetailViewModel = hiltViewModel()
+    val myListViewModel: MyListViewModel = hiltViewModel()
     movieDetailViewModel.getMovieDetails(movieId)
     val movieDetailsState = movieDetailViewModel.detailMovieState.value
+    movieDetailsState?.let {
+        myListViewModel.isItemExistsInTheWatchList(
+            it.id)
+    }
 
     Scaffold {
         Box(modifier = Modifier.fillMaxSize()) {
@@ -52,10 +59,13 @@ fun MovieDetails(navController: NavHostController, movieId: Long) {
                     movieDetailsState?.let { it1 ->
                         VxLargeBannerMovieItem(
                             posterUrl = it1.backDropUrl,
-                            Modifier.fillMaxSize().height(300.dp).constrainAs(backDropBanner) {
-                                start.linkTo(parent.start)
-                                top.linkTo(parent.top)
-                            })
+                            Modifier
+                                .fillMaxSize()
+                                .height(300.dp)
+                                .constrainAs(backDropBanner) {
+                                    start.linkTo(parent.start)
+                                    top.linkTo(parent.top)
+                                })
                     }
                     Column(modifier = Modifier.constrainAs(movieImage) {
                         top.linkTo(backDropBanner.bottom)
@@ -166,24 +176,35 @@ fun MovieDetails(navController: NavHostController, movieId: Long) {
                                             }
                                             Spacer(modifier = Modifier.width(5.dp))
                                             Spacer(modifier = Modifier.height(20.dp))
+                                            val myListIcon = if(myListViewModel.isExists.value) { Icons.Default.Check} else {Icons.Default.Add}
                                             Row {
                                                 ImageButton(
                                                     modifier = Modifier.padding(start = 10.dp, end = 30.dp),
-                                                    icon = Icons.Default.Add,
+                                                    icon = myListIcon,
                                                     text = "My List",
-                                                    movieIt
+                                                    movieIt,
+                                                    onItemTap = {
+                                                        if(myListViewModel.isExists.value){
+                                                            myListViewModel.removeFromWatchList(movieIt.id)
+                                                        }else{
+                                                            myListViewModel.insertToWatchList(movieIt)
+                                                        }
+
+                                                    }
                                                 )
                                                 ImageButton(
                                                     modifier = Modifier.padding(start = 10.dp, end = 30.dp),
                                                     icon = Icons.Outlined.ThumbUp,
                                                     text = "Like",
-                                                    movieIt
+                                                    movieIt,
+                                                    onItemTap = {}
                                                 )
                                                 ImageButton(
                                                     modifier = Modifier.padding(start = 10.dp, end = 30.dp),
                                                     icon = Icons.Outlined.Share,
                                                     text = "Share",
-                                                    movieIt
+                                                    movieIt,
+                                                    onItemTap = {}
                                                 )
                                             }
 
@@ -226,12 +247,13 @@ fun ImageButton(
     modifier: Modifier,
     icon: ImageVector,
     text: String,
-    movie: Movie
+    movie: Movie,
+    onItemTap:(text:String)->Unit
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier.selectable(selected = false, onClick = {
-
+            onItemTap(text)
         })
     ) {
         Icon(

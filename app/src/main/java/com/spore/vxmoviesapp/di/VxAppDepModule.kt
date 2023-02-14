@@ -1,6 +1,7 @@
 package com.spore.vxmoviesapp.di
 
 import com.spore.vxmoviesapp.data.network.RetrofitMovieService
+import com.spore.vxmoviesapp.data.offline.db.VxRoomDb
 import com.spore.vxmoviesapp.data.pagingsource.NowPlayingMoviePagingSource
 import com.spore.vxmoviesapp.data.pagingsource.PopularMoviePagingSource
 import com.spore.vxmoviesapp.data.pagingsource.TopRatedMoviePagingSource
@@ -20,6 +21,8 @@ import com.spore.vxmoviesapp.data.repository.toprated.VxTopRatedRepository
 import com.spore.vxmoviesapp.data.repository.toprated.VxTopRatedRepositoryImpl
 import com.spore.vxmoviesapp.data.repository.upcoming.VxUpComingMovieRepository
 import com.spore.vxmoviesapp.data.repository.upcoming.VxUpComingMovieRepositoryImpl
+import com.spore.vxmoviesapp.data.repository.watchlist.VxLocalWatchListRepository
+import com.spore.vxmoviesapp.data.repository.watchlist.VxLocalWatchListRepositoryImpl
 import com.spore.vxmoviesapp.domain.usecases.*
 import dagger.Module
 import dagger.Provides
@@ -101,6 +104,12 @@ object VxAppDepModule {
         return VxSearchRepositoryImpl(retrofitMovieService)
     }
 
+    @Singleton
+    @Provides
+    fun provideWatchListRepository(vxRoomDb : VxRoomDb): VxLocalWatchListRepository {
+        return VxLocalWatchListRepositoryImpl(vxRoomDb)
+    }
+
     /* Domain Level Use Cases */
     @Singleton
     @Provides
@@ -142,5 +151,11 @@ object VxAppDepModule {
     @Provides
     fun provideSearchUseCase(repository: VxSearchRepository): SearchUseCase {
         return SearchUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideWatchListUseCase(repository: VxLocalWatchListRepository): WatchListUseCase {
+        return WatchListUseCase(repository)
     }
 }
