@@ -4,7 +4,6 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.spore.vxmoviesapp.data.network.RetrofitMovieService
 import com.spore.vxmoviesapp.data.network.dto.MovieResponseDto
-import com.spore.vxmoviesapp.data.repository.VxMovieQuery
 import com.spore.vxmoviesapp.domain.model.Movie
 import retrofit2.HttpException
 import java.io.IOException
@@ -13,7 +12,6 @@ import javax.inject.Inject
 class TopRatedMoviePagingSource @Inject constructor(
     var vxMovieApi: RetrofitMovieService,
     var searchQuery: String = "",
-    var movieQuery: VxMovieQuery
 ) : PagingSource<Int, Movie>() {
 
 

@@ -20,5 +20,5 @@ interface MyListDao {
     suspend fun isExistsInTheWatchList(mediaId: Long): Long
 
     @Query("DELETE FROM my_watch_list WHERE mediaId= :mediaId")
-    suspend fun removeFromWatchList(mediaId:Long)
+    suspend fun removeFromWatchList(mediaId: Long)
 }

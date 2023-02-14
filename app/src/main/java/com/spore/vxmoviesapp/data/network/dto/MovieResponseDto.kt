@@ -36,7 +36,7 @@ data class MovieDto(
     @SerializedName("vote_count")
     val voteCount: Int,
     @SerializedName("runtime")
-    val runtime:Int
+    val runtime: Int
 
 ) {
     fun asDomainModel() = Movie(

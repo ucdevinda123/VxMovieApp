@@ -2,7 +2,6 @@ package com.spore.vxmoviesapp.data.network
 
 import com.spore.vxmoviesapp.data.network.constant.ApiConstant
 import com.spore.vxmoviesapp.data.network.dto.MovieDetailsDto
-import com.spore.vxmoviesapp.data.network.dto.MovieDto
 import com.spore.vxmoviesapp.data.network.dto.MovieResponseDto
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -49,7 +48,7 @@ interface RetrofitMovieService {
 
     @GET(ApiConstant.MOVIE)
     suspend fun getMovieDetails(
-        @Path("movie_id") movieId: Long= 646389,
+        @Path("movie_id") movieId: Long = 646389,
         @Query("page") page: Int = 1,
         @Query("api_key") apiKey: String = ApiConstant.KEY,
     ): MovieDetailsDto

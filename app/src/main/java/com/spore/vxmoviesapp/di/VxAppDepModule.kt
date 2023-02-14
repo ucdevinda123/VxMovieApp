@@ -6,7 +6,6 @@ import com.spore.vxmoviesapp.data.pagingsource.NowPlayingMoviePagingSource
 import com.spore.vxmoviesapp.data.pagingsource.PopularMoviePagingSource
 import com.spore.vxmoviesapp.data.pagingsource.TopRatedMoviePagingSource
 import com.spore.vxmoviesapp.data.pagingsource.UpcomingMoviePagingSource
-import com.spore.vxmoviesapp.data.repository.VxMovieQuery
 import com.spore.vxmoviesapp.data.repository.bannermovie.VxBannerMovieRepository
 import com.spore.vxmoviesapp.data.repository.bannermovie.VxBannerMovieRepositoryImpl
 import com.spore.vxmoviesapp.data.repository.moviedetails.VxMovieDetails
@@ -45,7 +44,7 @@ object VxAppDepModule {
     @Singleton
     @Provides
     fun provideTopRatedMovieSource(retrofitMovieService: RetrofitMovieService): TopRatedMoviePagingSource {
-        return TopRatedMoviePagingSource(retrofitMovieService, "", VxMovieQuery.TopMovies)
+        return TopRatedMoviePagingSource(retrofitMovieService, "")
     }
 
     @Singleton

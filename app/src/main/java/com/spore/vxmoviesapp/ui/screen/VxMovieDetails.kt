@@ -16,7 +16,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.outlined.ThumbUp
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -48,6 +48,10 @@ fun MovieDetails(navController: NavHostController, movieId: Long) {
     movieDetailsState?.let {
         myListViewModel.isItemExistsInTheWatchList(
             it.id)
+    }
+
+    var watchListIcon by remember {
+        mutableStateOf(myListViewModel.isExists.value)
     }
 
     Scaffold {
@@ -176,11 +180,12 @@ fun MovieDetails(navController: NavHostController, movieId: Long) {
                                             }
                                             Spacer(modifier = Modifier.width(5.dp))
                                             Spacer(modifier = Modifier.height(20.dp))
-                                            val myListIcon = if(myListViewModel.isExists.value) { Icons.Default.Check} else {Icons.Default.Add}
+
+                                            val myListImageIcon = if(watchListIcon) { Icons.Default.Check} else {Icons.Default.Add}
                                             Row {
                                                 ImageButton(
                                                     modifier = Modifier.padding(start = 10.dp, end = 30.dp),
-                                                    icon = myListIcon,
+                                                    icon = myListImageIcon,
                                                     text = "My List",
                                                     movieIt,
                                                     onItemTap = {
@@ -189,8 +194,8 @@ fun MovieDetails(navController: NavHostController, movieId: Long) {
                                                         }else{
                                                             myListViewModel.insertToWatchList(movieIt)
                                                         }
-
-                                                    }
+                                                        watchListIcon = !watchListIcon
+                                                   }
                                                 )
                                                 ImageButton(
                                                     modifier = Modifier.padding(start = 10.dp, end = 30.dp),
