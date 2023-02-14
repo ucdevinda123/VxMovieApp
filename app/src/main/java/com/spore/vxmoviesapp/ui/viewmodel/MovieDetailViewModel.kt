@@ -18,7 +18,7 @@ class MovieDetailViewModel @Inject constructor(
     private var _detailMovie = mutableStateOf<Movie?>(null)
     val detailMovieState: State<Movie?> = _detailMovie
 
-    fun getMovieDetails(id:Long) {
+    fun getMovieDetails(id: Long) {
         viewModelScope.launch {
             when (val response = movieDetailsUseCase.getMovieDetailsUseCase(id)) {
                 is Resource.Success -> {
@@ -28,7 +28,6 @@ class MovieDetailViewModel @Inject constructor(
                     Resource.Error("Unable to get movie details")
                 }
             }
-
         }
     }
 }

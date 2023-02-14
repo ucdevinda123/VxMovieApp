@@ -18,15 +18,14 @@ class MainBannerViewModel @Inject constructor(
     private var _trendingMovie = mutableStateOf<Movie?>(null)
     val trendingMovieState: State<Movie?> = _trendingMovie
 
-    fun getTrendingBanner(){
+    fun getTrendingBanner() {
         viewModelScope.launch {
-            when(val response =  trendingBannerUseCase.getTrendingBannerUseCase()){
+            when (val response = trendingBannerUseCase.getTrendingBannerUseCase()) {
                 is Resource.Success -> {
                     _trendingMovie.value = response.data
                 }
                 else -> {}
             }
-
         }
     }
 }

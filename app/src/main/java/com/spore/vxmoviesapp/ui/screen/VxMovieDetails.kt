@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -31,6 +32,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.spore.vxmoviesapp.R
 import com.spore.vxmoviesapp.domain.model.Movie
 import com.spore.vxmoviesapp.ui.components.VxRoundedImage
 import com.spore.vxmoviesapp.ui.components.appbar.VxAppBarWithBack
@@ -47,12 +49,11 @@ fun MovieDetails(navController: NavHostController, movieId: Long) {
     val movieDetailsState = movieDetailViewModel.detailMovieState.value
     movieDetailsState?.let {
         myListViewModel.isItemExistsInTheWatchList(
-            it.id)
+            it.id
+        )
     }
 
-    var watchListIcon by remember {
-        mutableStateOf(myListViewModel.isExists.value)
-    }
+
 
     Scaffold {
         Box(modifier = Modifier.fillMaxSize()) {
@@ -170,7 +171,7 @@ fun MovieDetails(navController: NavHostController, movieId: Long) {
                                                         )
                                                 ) {
                                                     Text(
-                                                        text = "HD",
+                                                        text = stringResource(id = R.string.hd),
                                                         fontSize = 10.sp,
                                                         fontWeight = FontWeight.Light,
                                                         color = Color.Black,
@@ -180,34 +181,54 @@ fun MovieDetails(navController: NavHostController, movieId: Long) {
                                             }
                                             Spacer(modifier = Modifier.width(5.dp))
                                             Spacer(modifier = Modifier.height(20.dp))
-
-                                            val myListImageIcon = if(watchListIcon) { Icons.Default.Check} else {Icons.Default.Add}
+                                            myListViewModel.isItemExistsInTheWatchList(movieId)
+                                            var watchListIcon by remember {
+                                                mutableStateOf(myListViewModel.isExists.value)
+                                            }
+                                            val myListImageIcon = if (watchListIcon) {
+                                                Icons.Default.Check
+                                            } else {
+                                                Icons.Default.Add
+                                            }
                                             Row {
                                                 ImageButton(
-                                                    modifier = Modifier.padding(start = 10.dp, end = 30.dp),
+                                                    modifier = Modifier.padding(
+                                                        start = 10.dp,
+                                                        end = 30.dp
+                                                    ),
                                                     icon = myListImageIcon,
-                                                    text = "My List",
+                                                    text = stringResource(id = R.string.my_list),
                                                     movieIt,
                                                     onItemTap = {
-                                                        if(myListViewModel.isExists.value){
-                                                            myListViewModel.removeFromWatchList(movieIt.id)
-                                                        }else{
-                                                            myListViewModel.insertToWatchList(movieIt)
+                                                        if (myListViewModel.isExists.value) {
+                                                            myListViewModel.removeFromWatchList(
+                                                                movieIt.id
+                                                            )
+                                                        } else {
+                                                            myListViewModel.insertToWatchList(
+                                                                movieIt
+                                                            )
                                                         }
                                                         watchListIcon = !watchListIcon
-                                                   }
+                                                    }
                                                 )
                                                 ImageButton(
-                                                    modifier = Modifier.padding(start = 10.dp, end = 30.dp),
+                                                    modifier = Modifier.padding(
+                                                        start = 10.dp,
+                                                        end = 30.dp
+                                                    ),
                                                     icon = Icons.Outlined.ThumbUp,
-                                                    text = "Like",
+                                                    text = stringResource(id = R.string.like),
                                                     movieIt,
                                                     onItemTap = {}
                                                 )
                                                 ImageButton(
-                                                    modifier = Modifier.padding(start = 10.dp, end = 30.dp),
+                                                    modifier = Modifier.padding(
+                                                        start = 10.dp,
+                                                        end = 30.dp
+                                                    ),
                                                     icon = Icons.Outlined.Share,
-                                                    text = "Share",
+                                                    text = stringResource(id = R.string.share),
                                                     movieIt,
                                                     onItemTap = {}
                                                 )
@@ -235,7 +256,7 @@ fun MovieDetails(navController: NavHostController, movieId: Long) {
                     )
                 }
             }
-            VxAppBarWithBack(false, Modifier.padding(1.dp), navController,"")
+            VxAppBarWithBack(false, Modifier.padding(1.dp), navController, "")
         }
     }
 }
@@ -253,7 +274,7 @@ fun ImageButton(
     icon: ImageVector,
     text: String,
     movie: Movie,
-    onItemTap:(text:String)->Unit
+    onItemTap: (text: String) -> Unit
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,

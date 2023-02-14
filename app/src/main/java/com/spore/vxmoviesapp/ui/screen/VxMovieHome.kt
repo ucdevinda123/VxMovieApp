@@ -12,10 +12,12 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.spore.vxmoviesapp.R
 import com.spore.vxmoviesapp.ui.anim.getVxTopBarColorState
 import com.spore.vxmoviesapp.ui.anim.getVxTopBarHeightState
 import com.spore.vxmoviesapp.ui.anim.getVxTopBarWidthState
@@ -28,7 +30,11 @@ import com.spore.vxmoviesapp.ui.viewmodel.HomeViewModel
 import com.spore.vxmoviesapp.ui.viewmodel.MainBannerViewModel
 
 @Composable
-fun VxMovieHome(onNavigate:(id:Long)-> Unit, onSearchNavigate:()->Unit,onMyListNavigate:()->Unit) {
+fun VxMovieHome(
+    onNavigate: (id: Long) -> Unit,
+    onSearchNavigate: () -> Unit,
+    onMyListNavigate: () -> Unit
+) {
     val homeScreenScrollState = rememberScrollState()
     val homeViewModel: HomeViewModel = hiltViewModel()
     homeViewModel.getPopularMovies()
@@ -44,12 +50,12 @@ fun VxMovieHome(onNavigate:(id:Long)-> Unit, onSearchNavigate:()->Unit,onMyListN
         Box(modifier = Modifier.fillMaxSize()) {
             Column(modifier = Modifier.verticalScroll(homeScreenScrollState)) {
                 MainMovieLayout()
-                MovieListScreens(homeViewModel,onNavigateMovieDetails = {
+                MovieListScreens(homeViewModel, onNavigateMovieDetails = {
                     onNavigate(it)
                 })
             }
             VxTopBar(isScrolledDown.value, onSearchItemTap = {
-                  onSearchNavigate()
+                onSearchNavigate()
             }, onMyListItemTap = {
                 onMyListNavigate()
             })
@@ -58,37 +64,39 @@ fun VxMovieHome(onNavigate:(id:Long)-> Unit, onSearchNavigate:()->Unit,onMyListN
 }
 
 @Composable
-fun MovieListScreens(homeViewModel: HomeViewModel,onNavigateMovieDetails: (id: Long) -> Unit) {
+fun MovieListScreens(homeViewModel: HomeViewModel, onNavigateMovieDetails: (id: Long) -> Unit) {
     val popularMovies = homeViewModel.popularMovieState.value.collectAsLazyPagingItems()
     val upcomingMovies = homeViewModel.upcomingMovieState.value.collectAsLazyPagingItems()
     val topRatedMovies = homeViewModel.topRatedMovieState.value.collectAsLazyPagingItems()
     val nowPlayingMovies = homeViewModel.nowPlayingMovieState.value.collectAsLazyPagingItems()
 
     Spacer(modifier = Modifier.width(15.dp))
-    VxMovieCarousal("Popular", popularMovies, false) {
+    VxMovieCarousal(stringResource(id = R.string.popular), popularMovies, false) {
         onNavigateMovieDetails(it)
     }
     Spacer(modifier = Modifier.width(15.dp))
-    VxMovieCarousal("Top Rated", topRatedMovies, true, onItemClick = {
+    VxMovieCarousal(stringResource(id = R.string.top_rated), topRatedMovies, true, onItemClick = {
         onNavigateMovieDetails(it)
     })
     Spacer(modifier = Modifier.width(15.dp))
-    VxMovieCarousal("Upcoming Movies", upcomingMovies, false, onItemClick = {
+    VxMovieCarousal(stringResource(id = R.string.up_movies), upcomingMovies, false, onItemClick = {
         onNavigateMovieDetails(it)
     })
 
     Spacer(modifier = Modifier.width(15.dp))
-    VxMovieCarousal("Now Playing", nowPlayingMovies, true, onItemClick = {
-        onNavigateMovieDetails(it)
-    })
+    VxMovieCarousal(
+        stringResource(id = R.string.now_playing),
+        nowPlayingMovies,
+        true,
+        onItemClick = {
+            onNavigateMovieDetails(it)
+        })
 }
-
 
 @Composable
 fun MainMovieLayout(mainBannerViewModel: MainBannerViewModel = hiltViewModel()) {
     mainBannerViewModel.getTrendingBanner()
     val trendingBanner = mainBannerViewModel.trendingMovieState.value?.posterUrl
-
 
     ConstraintLayout {
         val (movieImage, topTrendingBanner) = createRefs()
@@ -106,8 +114,8 @@ fun MainMovieLayout(mainBannerViewModel: MainBannerViewModel = hiltViewModel()) 
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             },
-            text = "Top",
-            rating = "10",
+            text = stringResource(id = R.string.top_label),
+            rating = stringResource(id = R.string.ten_label),
             enableTitle = true
         )
         Spacer(modifier = Modifier.height(12.dp))
@@ -118,8 +126,8 @@ fun MainMovieLayout(mainBannerViewModel: MainBannerViewModel = hiltViewModel()) 
 fun VxTopBar(
     isScrollingDown: Boolean,
     modifier: Modifier = Modifier,
-    onSearchItemTap:()->Unit,
-    onMyListItemTap:()->Unit
+    onSearchItemTap: () -> Unit,
+    onMyListItemTap: () -> Unit
 ) {
     Surface(
         modifier = modifier
@@ -147,7 +155,3 @@ fun VxTopBar(
         }
     }
 }
-
-
-
-

@@ -6,4 +6,13 @@
     <string name="search_hint">Search</string>
     <string name="my_list">My List</string>
     <string name="search_movies_and_tv_shows">Movies and Tv Shows</string>
+    <string name="top_label">Top</string>
+    <string name="ten_label">10</string>
+    <string name="popular">Popular</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="up_movies">Upcoming Movies</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="like">Like</string>
+    <string name="share">Share</string>
+    <string name="hd">HD</string>
 </resources>

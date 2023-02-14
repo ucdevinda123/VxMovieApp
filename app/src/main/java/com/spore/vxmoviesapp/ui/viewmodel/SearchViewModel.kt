@@ -23,9 +23,10 @@ class SearchViewModel @Inject constructor(val searchUseCase: SearchUseCase) : Vi
     private var _searchQuery = mutableStateOf("")
     val searchQueryState: State<String> = _searchQuery
 
-    fun search(searchText : String){
-        viewModelScope.launch { _searchQuery.value = searchText
-           val searchResponse =  searchUseCase.search(searchText).cachedIn(viewModelScope)
+    fun search(searchText: String) {
+        viewModelScope.launch {
+            _searchQuery.value = searchText
+            val searchResponse = searchUseCase.search(searchText).cachedIn(viewModelScope)
             _searchResult.value = searchResponse
         }
     }
