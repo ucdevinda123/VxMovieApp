@@ -89,7 +89,7 @@ fun MovieDetails(navController: NavHostController, movieId: Long) {
                                 Column(modifier = Modifier.fillMaxWidth()) {
                                     Row(modifier = Modifier.fillMaxWidth()) {
                                         VxRoundedImage(
-                                            imageUrl = movieIt.posterUrl,
+                                            imageUrl = movieIt.backDropUrl,
                                             modifier = Modifier
                                                 .width(110.dp)
                                                 .height(150.dp)
