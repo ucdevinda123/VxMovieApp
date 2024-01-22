@@ -12,11 +12,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun VxRoundedButton(text: String, modifier: Modifier = Modifier,withBorder: Boolean = false, onClick : () -> Unit){
+fun VxRoundedButton(text: String, modifier: Modifier = Modifier, withBorder: Boolean = false, onClick: () -> Unit) {
     Button(
-        shape= CircleShape,
-        elevation= ButtonDefaults.elevation(0.dp,0.dp),
-        contentPadding= PaddingValues(8.dp,5.dp),
+        shape = CircleShape,
+        elevation = ButtonDefaults.elevation(0.dp, 0.dp),
+        contentPadding = PaddingValues(8.dp, 5.dp),
         modifier = modifier,
         onClick = { onClick },
         colors = ButtonDefaults.buttonColors(backgroundColor = Color.DarkGray),

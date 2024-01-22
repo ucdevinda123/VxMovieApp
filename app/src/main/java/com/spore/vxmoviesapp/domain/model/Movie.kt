@@ -15,5 +15,5 @@ data class Movie(
     val isVideoAvailable: Boolean,
     val avgVote: Double,
     val voteCount: Int,
-    val runtime: Int
+    val runtime: Int,
 )

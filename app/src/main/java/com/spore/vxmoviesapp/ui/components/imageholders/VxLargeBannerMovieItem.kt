@@ -16,12 +16,12 @@ import coil.request.ImageRequest
 import com.spore.vxmoviesapp.R
 
 @Composable
-fun VxLargeBannerMovieItem(posterUrl: String="", modifier: Modifier=Modifier) {
+fun VxLargeBannerMovieItem(posterUrl: String = "", modifier: Modifier = Modifier) {
     Surface(
         shape = RectangleShape,
         color = Color.LightGray,
         elevation = 0.dp,
-        modifier = modifier
+        modifier = modifier,
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
@@ -31,7 +31,7 @@ fun VxLargeBannerMovieItem(posterUrl: String="", modifier: Modifier=Modifier) {
             placeholder = painterResource(R.drawable.poster),
             contentDescription = stringResource(R.string.app_name),
             contentScale = ContentScale.Crop,
-            modifier = modifier.fillMaxSize()
+            modifier = modifier.fillMaxSize(),
         )
     }
 }

@@ -1,5 +1,6 @@
 package com.spore.vxmoviesapp.ui.screen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -16,6 +17,7 @@ import com.spore.vxmoviesapp.ui.components.appbar.VxAppBarWithBack
 import com.spore.vxmoviesapp.ui.components.watchlistgrid.VxWatchListGrid
 import com.spore.vxmoviesapp.ui.viewmodel.MyListViewModel
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun VxMyList(navController: NavHostController, onNavigate: (id: Long) -> Unit) {
     val myListViewModel: MyListViewModel = hiltViewModel()
@@ -28,7 +30,7 @@ fun VxMyList(navController: NavHostController, onNavigate: (id: Long) -> Unit) {
                 false,
                 Modifier.padding(1.dp),
                 navController,
-                stringResource(id = R.string.my_list)
+                stringResource(id = R.string.my_list),
             )
 
             if (movieWatchList.value.isNotEmpty()) {
@@ -38,7 +40,8 @@ fun VxMyList(navController: NavHostController, onNavigate: (id: Long) -> Unit) {
                     3,
                     onItemClick = {
                         onNavigate(it)
-                    })
+                    },
+                )
             }
         }
     }

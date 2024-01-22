@@ -1,7 +1,15 @@
 package com.spore.vxmoviesapp.ui.components.carousal
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -11,7 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.items
+import coil.compose.rememberImagePainter
 import com.spore.vxmoviesapp.domain.model.Movie
 import com.spore.vxmoviesapp.ui.components.imageholders.VxLargeMovieItem
 import com.spore.vxmoviesapp.ui.components.imageholders.VxSmallMovieItem
@@ -41,8 +49,21 @@ fun VxMovieCarousal(
         }
 
         Spacer(modifier = Modifier.height(4.dp))
+
+
+        LazyRow {
+            items(pagingData.itemSnapshotList) { image ->
+                Image(
+                    painter = rememberImagePainter(image),
+                    contentDescription = null,
+                    modifier = Modifier.padding(8.dp)
+                )
+            }
+        }
         LazyRow(modifier = Modifier.padding(8.dp)) {
-            items(pagingData) {
+
+
+            this.items(pagingData.itemSnapshotList) {
                 if (it != null) {
                     if (usLargeImageItem) {
                         VxLargeMovieItem(it, onMovieItemClick = { movieItem ->

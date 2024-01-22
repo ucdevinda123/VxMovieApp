@@ -33,7 +33,7 @@ import com.spore.vxmoviesapp.ui.viewmodel.MainBannerViewModel
 fun VxMovieHome(
     onNavigate: (id: Long) -> Unit,
     onSearchNavigate: () -> Unit,
-    onMyListNavigate: () -> Unit
+    onMyListNavigate: () -> Unit,
 ) {
     val homeScreenScrollState = rememberScrollState()
     val homeViewModel: HomeViewModel = hiltViewModel()
@@ -90,7 +90,8 @@ fun MovieListScreens(homeViewModel: HomeViewModel, onNavigateMovieDetails: (id: 
         true,
         onItemClick = {
             onNavigateMovieDetails(it)
-        })
+        },
+    )
 }
 
 @Composable
@@ -106,7 +107,8 @@ fun MainMovieLayout(mainBannerViewModel: MainBannerViewModel = hiltViewModel()) 
                 posterUrl = trendingBanner,
                 modifier = Modifier.constrainAs(movieImage) {
                     top.linkTo(parent.top)
-                })
+                },
+            )
         }
         VxTrendingTopTextBanner(
             modifier = Modifier.constrainAs(topTrendingBanner) {
@@ -116,7 +118,7 @@ fun MainMovieLayout(mainBannerViewModel: MainBannerViewModel = hiltViewModel()) 
             },
             text = stringResource(id = R.string.top_label),
             rating = stringResource(id = R.string.ten_label),
-            enableTitle = true
+            enableTitle = true,
         )
         Spacer(modifier = Modifier.height(12.dp))
     }
@@ -127,18 +129,18 @@ fun VxTopBar(
     isScrollingDown: Boolean,
     modifier: Modifier = Modifier,
     onSearchItemTap: () -> Unit,
-    onMyListItemTap: () -> Unit
+    onMyListItemTap: () -> Unit,
 ) {
     Surface(
         modifier = modifier
             .padding(top = getVxTopBarWidthState(isScrolledDown = isScrollingDown).value)
             .height(getVxTopBarHeightState(isScrollingDown).value),
-        color = getVxTopBarColorState(isScrolledDown = isScrollingDown).value
+        color = getVxTopBarColorState(isScrolledDown = isScrollingDown).value,
     ) {
         TopAppBar(
             elevation = 0.dp,
             backgroundColor = Color.Transparent,
-            modifier = Modifier.height(40.dp)
+            modifier = Modifier.height(40.dp),
         ) {
             Column {
                 Spacer(modifier = Modifier.height(5.dp))

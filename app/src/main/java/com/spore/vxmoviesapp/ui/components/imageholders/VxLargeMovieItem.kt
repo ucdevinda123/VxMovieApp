@@ -19,14 +19,14 @@ import com.spore.vxmoviesapp.domain.model.Movie
 import com.spore.vxmoviesapp.ui.components.VxTrendingTopTextBanner
 
 @Composable
-fun VxLargeMovieItem(movie: Movie, onMovieItemClick: (movie:Movie) -> Unit) {
+fun VxLargeMovieItem(movie: Movie, onMovieItemClick: (movie: Movie) -> Unit) {
     ConstraintLayout {
         val (movieImage, topRate) = createRefs()
         Surface(
             color = Color.LightGray,
             shape = RoundedCornerShape(3),
             elevation = 2.dp,
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(8.dp),
         ) {
             Image(
                 painter = rememberAsyncImagePainter(movie.posterUrl),
@@ -52,7 +52,7 @@ fun VxLargeMovieItem(movie: Movie, onMovieItemClick: (movie:Movie) -> Unit) {
                     },
                     text = "Top",
                     rating = "10",
-                    false
+                    false,
 
                 )
             }

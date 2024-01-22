@@ -1,6 +1,7 @@
 package com.spore.vxmoviesapp.ui.screen
 
 import SearchBar
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -17,6 +18,7 @@ import com.spore.vxmoviesapp.ui.components.appbar.VxAppBarWithBack
 import com.spore.vxmoviesapp.ui.components.searchgrid.VxMovieGrid
 import com.spore.vxmoviesapp.ui.viewmodel.SearchViewModel
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun SearchMovies(navController: NavHostController, onNavigate: (id: Long) -> Unit) {
     val searchViewModel: SearchViewModel = hiltViewModel()
@@ -27,14 +29,14 @@ fun SearchMovies(navController: NavHostController, onNavigate: (id: Long) -> Uni
                 false,
                 Modifier.padding(1.dp),
                 navController,
-                stringResource(id = R.string.search_hint)
+                stringResource(id = R.string.search_hint),
             )
             SearchBar(
                 autoFocus = true,
                 viewModel = searchViewModel,
                 onSearch = {
                     searchViewModel.search(searchViewModel.searchQueryState.value)
-                }
+                },
             )
 
             VxMovieGrid(
@@ -43,7 +45,8 @@ fun SearchMovies(navController: NavHostController, onNavigate: (id: Long) -> Uni
                 3,
                 onItemClick = {
                     onNavigate(it)
-                })
+                },
+            )
         }
     }
 }

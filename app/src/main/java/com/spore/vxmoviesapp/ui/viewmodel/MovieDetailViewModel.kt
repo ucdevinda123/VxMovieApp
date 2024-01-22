@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MovieDetailViewModel @Inject constructor(
-    private val movieDetailsUseCase: MovieDetailsUseCase
+    private val movieDetailsUseCase: MovieDetailsUseCase,
 ) : ViewModel() {
     private var _detailMovie = mutableStateOf<Movie?>(null)
     val detailMovieState: State<Movie?> = _detailMovie

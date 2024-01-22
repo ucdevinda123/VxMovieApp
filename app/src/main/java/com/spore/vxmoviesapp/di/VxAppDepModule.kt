@@ -33,7 +33,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object VxAppDepModule {
 
-
     /*Paging Data Sources */
     @Singleton
     @Provides
@@ -78,7 +77,6 @@ object VxAppDepModule {
         return VxPopularMovieRepositoryImpl(popularMoviePagingSource)
     }
 
-
     @Singleton
     @Provides
     fun provideUpcomingMovieRepository(upcomingMoviePagingSource: UpcomingMoviePagingSource): VxUpComingMovieRepository {
@@ -105,7 +103,7 @@ object VxAppDepModule {
 
     @Singleton
     @Provides
-    fun provideWatchListRepository(vxRoomDb : VxRoomDb): VxLocalWatchListRepository {
+    fun provideWatchListRepository(vxRoomDb: VxRoomDb): VxLocalWatchListRepository {
         return VxLocalWatchListRepositoryImpl(vxRoomDb)
     }
 

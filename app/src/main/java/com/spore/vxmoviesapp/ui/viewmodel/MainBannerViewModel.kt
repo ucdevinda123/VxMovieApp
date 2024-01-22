@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainBannerViewModel @Inject constructor(
-    private val trendingBannerUseCase: TrendingBannerUseCase
+    private val trendingBannerUseCase: TrendingBannerUseCase,
 ) : ViewModel() {
     private var _trendingMovie = mutableStateOf<Movie?>(null)
     val trendingMovieState: State<Movie?> = _trendingMovie

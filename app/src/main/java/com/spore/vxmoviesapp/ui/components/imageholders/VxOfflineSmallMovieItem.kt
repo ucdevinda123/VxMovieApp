@@ -14,7 +14,7 @@ import com.spore.vxmoviesapp.ui.components.VxRoundedImage
 fun VxOfflineSmallMovieItem(
     movie: MyList,
     onMovieSelected: (Long) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     ConstraintLayout {
         val (movieImage) = createRefs()
@@ -31,7 +31,7 @@ fun VxOfflineSmallMovieItem(
                         start.linkTo(parent.start)
                         top.linkTo(parent.top)
                     },
-                cornerPercent = 3
+                cornerPercent = 3,
             )
         }
     }

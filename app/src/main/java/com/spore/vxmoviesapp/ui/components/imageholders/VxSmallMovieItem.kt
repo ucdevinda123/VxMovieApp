@@ -15,7 +15,7 @@ import com.spore.vxmoviesapp.ui.components.VxTrendingTopTextBanner
 fun VxSmallMovieItem(
     movie: Movie,
     onMovieSelected: (Long) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     ConstraintLayout {
         val (movieImage, topTrendingBanner) = createRefs()
@@ -31,7 +31,7 @@ fun VxSmallMovieItem(
                     start.linkTo(parent.start)
                     top.linkTo(parent.top)
                 },
-            cornerPercent = 3
+            cornerPercent = 3,
         )
         if (movie.avgVote >= 8) {
             VxTrendingTopTextBanner(
@@ -41,7 +41,7 @@ fun VxSmallMovieItem(
                 },
                 "Top",
                 "10",
-                enableTitle = false
+                enableTitle = false,
             )
         }
     }

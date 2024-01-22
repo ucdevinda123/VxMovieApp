@@ -24,7 +24,7 @@ class HomeViewModel @Inject constructor(
     var upComingMovieUseCase: UpComingMovieUseCase,
     private val nowPlayingMovieUseCase: NowPlayingMovieUseCase,
 
-    ) : ViewModel() {
+) : ViewModel() {
 
     private var _popularMovies = mutableStateOf<Flow<PagingData<Movie>>>(emptyFlow())
     val popularMovieState: State<Flow<PagingData<Movie>>> = _popularMovies
@@ -37,7 +37,6 @@ class HomeViewModel @Inject constructor(
 
     private var _nowPlayingMovies = mutableStateOf<Flow<PagingData<Movie>>>(emptyFlow())
     val nowPlayingMovieState: State<Flow<PagingData<Movie>>> = _nowPlayingMovies
-
 
     fun getPopularMovies() {
         viewModelScope.launch {

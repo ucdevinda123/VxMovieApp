@@ -49,11 +49,9 @@ fun MovieDetails(navController: NavHostController, movieId: Long) {
     val movieDetailsState = movieDetailViewModel.detailMovieState.value
     movieDetailsState?.let {
         myListViewModel.isItemExistsInTheWatchList(
-            it.id
+            it.id,
         )
     }
-
-
 
     Scaffold {
         Box(modifier = Modifier.fillMaxSize()) {
@@ -70,19 +68,22 @@ fun MovieDetails(navController: NavHostController, movieId: Long) {
                                 .constrainAs(backDropBanner) {
                                     start.linkTo(parent.start)
                                     top.linkTo(parent.top)
-                                })
+                                },
+                        )
                     }
-                    Column(modifier = Modifier.constrainAs(movieImage) {
-                        top.linkTo(backDropBanner.bottom)
-                        bottom.linkTo(backDropBanner.bottom)
-                        start.linkTo(parent.start)
-                    }) {
+                    Column(
+                        modifier = Modifier.constrainAs(movieImage) {
+                            top.linkTo(backDropBanner.bottom)
+                            bottom.linkTo(backDropBanner.bottom)
+                            start.linkTo(parent.start)
+                        },
+                    ) {
                         Box(
                             modifier = Modifier
                                 .padding(10.dp)
                                 .clip(RoundedCornerShape(4.dp))
                                 .fillMaxWidth()
-                                .height(172.5.dp)
+                                .height(172.5.dp),
                         ) {
                             movieDetailsState?.let { movieIt ->
                                 Column(modifier = Modifier.fillMaxWidth()) {
@@ -95,11 +96,11 @@ fun MovieDetails(navController: NavHostController, movieId: Long) {
                                                 .padding(10.dp)
                                                 .clickable(onClick = {
                                                 }),
-                                            cornerPercent = 3
+                                            cornerPercent = 3,
                                         )
                                         Column(
                                             Modifier
-                                                .wrapContentWidth()
+                                                .wrapContentWidth(),
                                         ) {
                                             Text(
                                                 text = movieDetailsState.title,
@@ -113,69 +114,69 @@ fun MovieDetails(navController: NavHostController, movieId: Long) {
                                                 text = DateUtils.formatFilmDuration(movieIt.runtime),
                                                 fontSize = 12.sp,
                                                 fontWeight = FontWeight.Light,
-                                                color = Color.White
+                                                color = Color.White,
                                             )
                                             Spacer(modifier = Modifier.width(10.dp))
                                             Row {
                                                 Text(
                                                     text = movieDetailsState.releaseDate.substring(
                                                         0,
-                                                        4
+                                                        4,
                                                     ),
                                                     fontSize = 12.sp,
                                                     fontWeight = FontWeight.Light,
-                                                    color = Color.White
+                                                    color = Color.White,
                                                 )
                                                 Spacer(modifier = Modifier.width(10.dp))
                                                 Box(
                                                     modifier = Modifier
                                                         .background(
                                                             color = Color.DarkGray,
-                                                            shape = RoundedCornerShape(8)
+                                                            shape = RoundedCornerShape(8),
                                                         )
                                                         .padding(
                                                             start = 4.dp,
                                                             top = 1.dp,
                                                             end = 4.dp,
-                                                            bottom = 1.dp
-                                                        )
+                                                            bottom = 1.dp,
+                                                        ),
                                                 ) {
                                                     Text(
                                                         text = movieDetailsState.popularity.toString(),
                                                         fontSize = 10.sp,
                                                         fontWeight = FontWeight.Light,
-                                                        color = Color.LightGray
+                                                        color = Color.LightGray,
                                                     )
                                                 }
                                                 Spacer(modifier = Modifier.width(10.dp))
                                                 Text(
                                                     text = DateUtils.formatFilmDuration(
-                                                        movieDetailsState.runtime
+                                                        movieDetailsState.runtime,
                                                     ),
                                                     fontSize = 12.sp,
                                                     fontWeight = FontWeight.Light,
-                                                    color = Color.LightGray
+                                                    color = Color.LightGray,
                                                 )
                                                 Spacer(modifier = Modifier.width(10.dp))
                                                 Box(
                                                     modifier = Modifier
                                                         .background(
                                                             color = Color.LightGray,
-                                                            shape = RoundedCornerShape(8)
+                                                            shape = RoundedCornerShape(8),
                                                         )
                                                         .padding(
                                                             start = 3.dp,
                                                             top = 0.dp,
                                                             end = 3.dp,
-                                                            bottom = 0.dp
-                                                        )
+                                                            bottom = 0.dp,
+                                                        ),
                                                 ) {
                                                     Text(
                                                         text = stringResource(id = R.string.hd),
                                                         fontSize = 10.sp,
                                                         fontWeight = FontWeight.Light,
                                                         color = Color.Black,
-                                                        letterSpacing = 2.sp
+                                                        letterSpacing = 2.sp,
                                                     )
                                                 }
                                             }
@@ -194,7 +195,7 @@ fun MovieDetails(navController: NavHostController, movieId: Long) {
                                                 ImageButton(
                                                     modifier = Modifier.padding(
                                                         start = 10.dp,
-                                                        end = 30.dp
+                                                        end = 30.dp,
                                                     ),
                                                     icon = myListImageIcon,
                                                     text = stringResource(id = R.string.my_list),
@@ -202,40 +203,38 @@ fun MovieDetails(navController: NavHostController, movieId: Long) {
                                                     onItemTap = {
                                                         if (myListViewModel.isExists.value) {
                                                             myListViewModel.removeFromWatchList(
-                                                                movieIt.id
+                                                                movieIt.id,
                                                             )
                                                         } else {
                                                             myListViewModel.insertToWatchList(
-                                                                movieIt
+                                                                movieIt,
                                                             )
                                                         }
                                                         watchListIcon = !watchListIcon
-                                                    }
+                                                    },
                                                 )
                                                 ImageButton(
                                                     modifier = Modifier.padding(
                                                         start = 10.dp,
-                                                        end = 30.dp
+                                                        end = 30.dp,
                                                     ),
                                                     icon = Icons.Outlined.ThumbUp,
                                                     text = stringResource(id = R.string.like),
                                                     movieIt,
-                                                    onItemTap = {}
+                                                    onItemTap = {},
                                                 )
                                                 ImageButton(
                                                     modifier = Modifier.padding(
                                                         start = 10.dp,
-                                                        end = 30.dp
+                                                        end = 30.dp,
                                                     ),
                                                     icon = Icons.Outlined.Share,
                                                     text = stringResource(id = R.string.share),
                                                     movieIt,
-                                                    onItemTap = {}
+                                                    onItemTap = {},
                                                 )
                                             }
-
                                         }
-
                                     }
                                 }
                             }
@@ -252,7 +251,7 @@ fun MovieDetails(navController: NavHostController, movieId: Long) {
                         lineHeight = 18.sp,
                         overflow = TextOverflow.Ellipsis,
                         color = Color.White,
-                        modifier = Modifier.padding(start = 12.dp, end = 12.dp)
+                        modifier = Modifier.padding(start = 12.dp, end = 12.dp),
                     )
                 }
             }
@@ -261,11 +260,10 @@ fun MovieDetails(navController: NavHostController, movieId: Long) {
     }
 }
 
-
 @Preview
 @Composable
 fun PreviewMovieDetail() {
-    //MovieDetails()
+    // MovieDetails()
 }
 
 @Composable
@@ -274,24 +272,24 @@ fun ImageButton(
     icon: ImageVector,
     text: String,
     movie: Movie,
-    onItemTap: (text: String) -> Unit
+    onItemTap: (text: String) -> Unit,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier.selectable(selected = false, onClick = {
             onItemTap(text)
-        })
+        }),
     ) {
         Icon(
             imageVector = icon,
-            contentDescription = null
+            contentDescription = null,
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = text,
             fontSize = 10.sp,
             style = MaterialTheme.typography.button,
-            maxLines = 1
+            maxLines = 1,
         )
     }
 }
