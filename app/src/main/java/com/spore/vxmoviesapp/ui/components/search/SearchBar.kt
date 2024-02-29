@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -20,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.spore.vxmoviesapp.R
 import com.spore.vxmoviesapp.ui.viewmodel.SearchViewModel
+import com.spore.vxmoviesapp.util.isNetworkAvailable
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -36,12 +38,13 @@ fun SearchBar(
             .fillMaxWidth()
             .height(54.dp)
     ) {
-
-
+        val context = LocalContext.current
         TextField(
             value = viewModel.searchQueryState.value,
             onValueChange = {
-                viewModel.search(it)
+                if(isNetworkAvailable(context)){
+                    viewModel.search(it)
+                }
             },
             modifier = Modifier
                 .fillMaxSize(),
@@ -65,14 +68,12 @@ fun SearchBar(
             ),
             keyboardActions = KeyboardActions(
                 onSearch = {
-                    viewModel.search(viewModel.searchQueryState.value)
+                    if(isNetworkAvailable(context)){
+                        viewModel.search(viewModel.searchQueryState.value)
+                    }
                 }
             ),
             trailingIcon = {
-                LaunchedEffect(Unit) {
-                    if (autoFocus) {
-                    }
-                }
                 Row {
 
                     IconButton(onClick = {

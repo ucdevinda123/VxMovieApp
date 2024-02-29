@@ -1,6 +1,7 @@
 package com.spore.vxmoviesapp.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -12,20 +13,29 @@ import com.spore.vxmoviesapp.ui.screen.MovieDetails
 import com.spore.vxmoviesapp.ui.screen.SearchMovies
 import com.spore.vxmoviesapp.ui.screen.VxMovieHome
 import com.spore.vxmoviesapp.ui.screen.VxMyList
+import com.spore.vxmoviesapp.util.isNetworkAvailable
 
 @Composable
 fun SetUpNavGraph(navController: NavHostController) {
     NavHost(navController = navController, startDestination = Screen.HomeScreen.route) {
         composable(route = Screen.HomeScreen.route) {
+            val context = LocalContext.current
             VxMovieHome(
                 onNavigate = { movieId ->
-                    navController.navigate("${Screen.MovieDetailScreen.route}/$movieId")
+                    if(isNetworkAvailable(context)){
+                        navController.navigate("${Screen.MovieDetailScreen.route}/$movieId")
+                    }
+
                 },
                 onSearchNavigate = {
-                    navController.navigate(route = Screen.SearchScreen.route)
+                    if(isNetworkAvailable(context)) {
+                        navController.navigate(route = Screen.SearchScreen.route)
+                    }
                 },
                 onMyListNavigate = {
-                    navController.navigate(route = Screen.MyListScreen.route)
+                    if(isNetworkAvailable(context)) {
+                        navController.navigate(route = Screen.MyListScreen.route)
+                    }
                 },
             )
         }

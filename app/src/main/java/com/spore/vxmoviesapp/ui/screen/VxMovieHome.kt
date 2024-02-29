@@ -12,6 +12,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -28,6 +29,7 @@ import com.spore.vxmoviesapp.ui.components.imageholders.VxLargeBannerMovieItem
 import com.spore.vxmoviesapp.ui.components.menubar.VxCategoryMenuBar
 import com.spore.vxmoviesapp.ui.viewmodel.HomeViewModel
 import com.spore.vxmoviesapp.ui.viewmodel.MainBannerViewModel
+import com.spore.vxmoviesapp.util.isNetworkAvailable
 
 @Composable
 fun VxMovieHome(
@@ -37,10 +39,13 @@ fun VxMovieHome(
 ) {
     val homeScreenScrollState = rememberScrollState()
     val homeViewModel: HomeViewModel = hiltViewModel()
-    homeViewModel.getPopularMovies()
-    homeViewModel.getUpComingMovies()
-    homeViewModel.getTopRatedMovies()
-    homeViewModel.getNowPlayingMovies()
+    if (isNetworkAvailable(LocalContext.current)) {
+        homeViewModel.getPopularMovies()
+        homeViewModel.getUpComingMovies()
+        homeViewModel.getTopRatedMovies()
+        homeViewModel.getNowPlayingMovies()
+    }
+
     val isScrolledDown = remember {
         derivedStateOf {
             homeScreenScrollState.value > 0
@@ -96,31 +101,32 @@ fun MovieListScreens(homeViewModel: HomeViewModel, onNavigateMovieDetails: (id: 
 
 @Composable
 fun MainMovieLayout(mainBannerViewModel: MainBannerViewModel = hiltViewModel()) {
-    mainBannerViewModel.getTrendingBanner()
-    val trendingBanner = mainBannerViewModel.trendingMovieState.value?.posterUrl
+    if (isNetworkAvailable(LocalContext.current)) {
+        mainBannerViewModel.getTrendingBanner()
+        val trendingBanner = mainBannerViewModel.trendingMovieState.value?.posterUrl
+        ConstraintLayout {
+            val (movieImage, topTrendingBanner) = createRefs()
 
-    ConstraintLayout {
-        val (movieImage, topTrendingBanner) = createRefs()
-
-        if (trendingBanner != null) {
-            VxLargeBannerMovieItem(
-                posterUrl = trendingBanner,
-                modifier = Modifier.constrainAs(movieImage) {
-                    top.linkTo(parent.top)
+            if (trendingBanner != null) {
+                VxLargeBannerMovieItem(
+                    posterUrl = trendingBanner,
+                    modifier = Modifier.constrainAs(movieImage) {
+                        top.linkTo(parent.top)
+                    },
+                )
+            }
+            VxTrendingTopTextBanner(
+                modifier = Modifier.constrainAs(topTrendingBanner) {
+                    bottom.linkTo(movieImage.bottom, margin = 24.dp)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
                 },
+                text = stringResource(id = R.string.top_label),
+                rating = stringResource(id = R.string.ten_label),
+                enableTitle = true,
             )
+            Spacer(modifier = Modifier.height(12.dp))
         }
-        VxTrendingTopTextBanner(
-            modifier = Modifier.constrainAs(topTrendingBanner) {
-                bottom.linkTo(movieImage.bottom, margin = 24.dp)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-            },
-            text = stringResource(id = R.string.top_label),
-            rating = stringResource(id = R.string.ten_label),
-            enableTitle = true,
-        )
-        Spacer(modifier = Modifier.height(12.dp))
     }
 }
 
