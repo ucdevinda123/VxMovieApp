@@ -26,7 +26,10 @@ data class MovieDetailsDto(
     @SerializedName("vote_count")
     val voteCount: Int,
     @SerializedName("runtime")
-    val runtime: Int
+    val runtime: Int,
+    @SerializedName("imdb_id")
+    val imdbId: String?,
+
 ) {
 
     fun asDomainModel() = Movie(
@@ -34,21 +37,22 @@ data class MovieDetailsDto(
         isAdult = adult,
         backDropUrl = ApiConstant.MOVIE_IMAGE_BASE_URL_W500 + backDropPath,
         posterUrl = ApiConstant.MOVIE_IMAGE_BASE_URL_W500 + posterPath,
-        genreIds = genres.map { it.id },
-        genres = genres.map { it.name },
+        genreIds = if (genres.isNullOrEmpty()) genres.map { it.id } else emptyList(),
+        genres = if (genres.isNullOrEmpty()) genres.map { it.name } else emptyList(),
         language = originalLanguage,
         title = title,
         overview = overview,
         popularity = popularity,
-        releaseDate = releaseDate,
+        releaseDate = releaseDate ?: "",
         isVideoAvailable = video,
         avgVote = avgVote,
         voteCount = voteCount,
-        runtime = runtime
+        runtime = runtime,
+        imdbId = imdbId,
     )
 }
 
 data class Genres(
     val id: Int,
-    val name: String
+    val name: String,
 )

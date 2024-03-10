@@ -22,7 +22,14 @@ import com.spore.vxmoviesapp.data.repository.upcoming.VxUpComingMovieRepository
 import com.spore.vxmoviesapp.data.repository.upcoming.VxUpComingMovieRepositoryImpl
 import com.spore.vxmoviesapp.data.repository.watchlist.VxLocalWatchListRepository
 import com.spore.vxmoviesapp.data.repository.watchlist.VxLocalWatchListRepositoryImpl
-import com.spore.vxmoviesapp.domain.usecases.*
+import com.spore.vxmoviesapp.domain.usecases.MovieDetailsUseCase
+import com.spore.vxmoviesapp.domain.usecases.NowPlayingMovieUseCase
+import com.spore.vxmoviesapp.domain.usecases.PopularMovieUseCase
+import com.spore.vxmoviesapp.domain.usecases.SearchUseCase
+import com.spore.vxmoviesapp.domain.usecases.TopRateMovieUseCase
+import com.spore.vxmoviesapp.domain.usecases.TrendingBannerUseCase
+import com.spore.vxmoviesapp.domain.usecases.UpComingMovieUseCase
+import com.spore.vxmoviesapp.domain.usecases.WatchListUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

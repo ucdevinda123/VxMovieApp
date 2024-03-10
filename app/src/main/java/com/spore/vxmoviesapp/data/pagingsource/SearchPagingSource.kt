@@ -14,7 +14,6 @@ class SearchPagingSource @Inject constructor(
     var searchQuery: String,
 ) : PagingSource<Int, Movie>() {
 
-
     override fun getRefreshKey(state: PagingState<Int, Movie>): Int? {
         return state.anchorPosition
     }
@@ -23,18 +22,22 @@ class SearchPagingSource @Inject constructor(
         return try {
             lateinit var movieResponse: MovieResponseDto
             val nextPage = params.key ?: 1
-            movieResponse = vxMovieApi.searchMovies(nextPage,searchQuery)
+            movieResponse = vxMovieApi.searchMovies(nextPage, searchQuery)
 
-            val data = movieResponse.results.map {
-                it.asDomainModel()
+            val data = if (movieResponse.results != null) {
+                movieResponse.results.map {
+                    println("CHINTHAJA $it")
+                    it.asDomainModel()
+                }
+            } else {
+                emptyList()
             }
 
             LoadResult.Page(
                 data = data,
                 prevKey = if (nextPage == 1) null else nextPage - 1,
-                nextKey = if (movieResponse.results.isEmpty()) null else movieResponse.page + 1
+                nextKey = if (movieResponse.results.isEmpty()) null else movieResponse.page + 1,
             )
-
         } catch (exception: IOException) {
             LoadResult.Error(exception)
         } catch (exception: HttpException) {

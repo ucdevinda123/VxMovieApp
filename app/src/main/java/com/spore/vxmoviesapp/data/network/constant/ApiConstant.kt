@@ -10,6 +10,6 @@ object ApiConstant {
     const val MOVIE = "movie/{movie_id}"
     const val SEARCH_MOVIES = "search/movie?query"
 
-    const val MOVIE_IMAGE_BASE_URL_W500 = "https://image.tmdb.org/t/p/w500"
-    const val KEY = "5de5f6163222529e69d1516234729b6b"
+    const val MOVIE_IMAGE_BASE_URL_W500 = "https://image.tmdb.org/t/p/w780"
+    const val KEY = ""
 }

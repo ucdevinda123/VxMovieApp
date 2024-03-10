@@ -1,14 +1,22 @@
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ExposedDropdownMenuDefaults.textFieldColors
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -28,7 +36,7 @@ import com.spore.vxmoviesapp.util.isNetworkAvailable
 fun SearchBar(
     autoFocus: Boolean,
     viewModel: SearchViewModel = hiltViewModel(),
-    onSearch: () -> Unit
+    onSearch: () -> Unit,
 ) {
     Box(
         modifier = Modifier
@@ -36,13 +44,13 @@ fun SearchBar(
             .clip(RectangleShape)
             .background(Color.DarkGray)
             .fillMaxWidth()
-            .height(54.dp)
+            .height(54.dp),
     ) {
         val context = LocalContext.current
         TextField(
             value = viewModel.searchQueryState.value,
             onValueChange = {
-                if(isNetworkAvailable(context)){
+                if (isNetworkAvailable(context)) {
                     viewModel.search(it)
                 }
             },
@@ -52,7 +60,7 @@ fun SearchBar(
             placeholder = {
                 Text(
                     text = stringResource(id = R.string.search_hint),
-                    color = Color.White.copy(alpha = 0.8F)
+                    color = Color.White.copy(alpha = 0.8F),
                 )
             },
             colors = textFieldColors(
@@ -60,33 +68,33 @@ fun SearchBar(
                 backgroundColor = Color.Transparent,
                 disabledTextColor = Color.LightGray,
                 focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
-            ), keyboardOptions = KeyboardOptions(
+                unfocusedIndicatorColor = Color.Transparent,
+            ),
+            keyboardOptions = KeyboardOptions(
                 autoCorrect = true,
                 keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Search
+                imeAction = ImeAction.Search,
             ),
             keyboardActions = KeyboardActions(
                 onSearch = {
-                    if(isNetworkAvailable(context)){
+                    if (isNetworkAvailable(context)) {
                         viewModel.search(viewModel.searchQueryState.value)
                     }
-                }
+                },
             ),
             trailingIcon = {
                 Row {
-
                     IconButton(onClick = {
-                         onSearch()
+                        onSearch()
                     }) {
                         Icon(
                             imageVector = Icons.Outlined.Search,
                             contentDescription = "Search",
-                            tint = Color.White
+                            tint = Color.White,
                         )
                     }
                 }
-            }
+            },
         )
     }
 }

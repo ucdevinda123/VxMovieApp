@@ -1,5 +1,7 @@
 package com.spore.vxmoviesapp.ui.screen
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -22,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -64,7 +67,7 @@ fun MovieDetails(navController: NavHostController, movieId: Long) {
                             posterUrl = it1.backDropUrl,
                             Modifier
                                 .fillMaxSize()
-                                .height(300.dp)
+                                .height(400.dp)
                                 .constrainAs(backDropBanner) {
                                     start.linkTo(parent.start)
                                     top.linkTo(parent.top)
@@ -88,6 +91,7 @@ fun MovieDetails(navController: NavHostController, movieId: Long) {
                             movieDetailsState?.let { movieIt ->
                                 Column(modifier = Modifier.fillMaxWidth()) {
                                     Row(modifier = Modifier.fillMaxWidth()) {
+                                        val context = LocalContext.current
                                         VxRoundedImage(
                                             imageUrl = movieIt.backDropUrl,
                                             modifier = Modifier
@@ -213,7 +217,7 @@ fun MovieDetails(navController: NavHostController, movieId: Long) {
                                                         watchListIcon = !watchListIcon
                                                     },
                                                 )
-                                                ImageButton(
+                                            /*    ImageButton(
                                                     modifier = Modifier.padding(
                                                         start = 10.dp,
                                                         end = 30.dp,
@@ -222,17 +226,26 @@ fun MovieDetails(navController: NavHostController, movieId: Long) {
                                                     text = stringResource(id = R.string.like),
                                                     movieIt,
                                                     onItemTap = {},
-                                                )
-                                                ImageButton(
-                                                    modifier = Modifier.padding(
-                                                        start = 10.dp,
-                                                        end = 30.dp,
-                                                    ),
-                                                    icon = Icons.Outlined.Share,
-                                                    text = stringResource(id = R.string.share),
-                                                    movieIt,
-                                                    onItemTap = {},
-                                                )
+                                                )*/
+                                                if(movieIt.imdbId != null){
+                                                    ImageButton(
+                                                        modifier = Modifier.padding(
+                                                            start = 10.dp,
+                                                            end = 30.dp,
+                                                        ),
+                                                        icon = Icons.Outlined.Share,
+                                                        text = stringResource(id = R.string.share),
+                                                        movieIt,
+                                                        onItemTap = {
+                                                            movieIt.imdbId?.let { it1 ->
+                                                                shareMovieUrl(context,movieIt.title,
+                                                                    it1
+                                                                )
+                                                            }
+                                                        },
+                                                    )
+                                                }
+
                                             }
                                         }
                                     }
@@ -292,4 +305,14 @@ fun ImageButton(
             maxLines = 1,
         )
     }
+}
+
+private fun shareMovieUrl(context: Context, movieTitle: String, movieUrl: String) {
+    val shareIntent = Intent().apply {
+        action = Intent.ACTION_SEND
+        putExtra(Intent.EXTRA_SUBJECT, "Check out this movie: $movieTitle")
+        putExtra(Intent.EXTRA_TEXT, "https://www.imdb.com/title/$movieUrl")
+        type = "text/plain"
+    }
+    context.startActivity(Intent.createChooser(shareIntent, null))
 }

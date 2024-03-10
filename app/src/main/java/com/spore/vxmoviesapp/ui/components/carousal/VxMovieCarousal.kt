@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,13 +23,12 @@ import com.spore.vxmoviesapp.domain.model.Movie
 import com.spore.vxmoviesapp.ui.components.imageholders.VxLargeMovieItem
 import com.spore.vxmoviesapp.ui.components.imageholders.VxSmallMovieItem
 
-
 @Composable
 fun VxMovieCarousal(
     title: String,
     pagingData: LazyPagingItems<Movie>,
     usLargeImageItem: Boolean,
-    onItemClick:(id:Long) -> Unit
+    onItemClick: (id: Long) -> Unit,
 ) {
     Column(modifier = Modifier.padding(5.dp)) {
         Row(Modifier.fillMaxWidth()) {
@@ -44,25 +42,22 @@ fun VxMovieCarousal(
                 color = Color.White,
                 modifier = Modifier
                     .padding(start = 12.dp, top = 4.dp)
-                    .weight(2f)
+                    .weight(2f),
             )
         }
 
         Spacer(modifier = Modifier.height(4.dp))
-
 
         LazyRow {
             items(pagingData.itemSnapshotList) { image ->
                 Image(
                     painter = rememberImagePainter(image),
                     contentDescription = null,
-                    modifier = Modifier.padding(8.dp)
+                    modifier = Modifier.padding(8.dp),
                 )
             }
         }
         LazyRow(modifier = Modifier.padding(8.dp)) {
-
-
             this.items(pagingData.itemSnapshotList) {
                 if (it != null) {
                     if (usLargeImageItem) {

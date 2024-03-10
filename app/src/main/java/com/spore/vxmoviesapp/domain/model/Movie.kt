@@ -5,8 +5,8 @@ data class Movie(
     val isAdult: Boolean,
     val backDropUrl: String,
     val posterUrl: String,
-    val genreIds: List<Int>,
-    val genres: List<String> = listOf(),
+    val genreIds: List<Int?>,
+    val genres: List<String?> = listOf(),
     val language: String,
     val title: String,
     val overview: String,
@@ -16,4 +16,5 @@ data class Movie(
     val avgVote: Double,
     val voteCount: Int,
     val runtime: Int,
+    val imdbId: String?,
 )

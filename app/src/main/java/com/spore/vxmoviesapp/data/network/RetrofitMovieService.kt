@@ -13,35 +13,30 @@ interface RetrofitMovieService {
     suspend fun getPopularMovies(
         @Query("page") page: Int = 1,
         @Query("include_adult") includeAdult: Boolean = false,
-        @Query("api_key") apiKey: String = ApiConstant.KEY,
     ): MovieResponseDto
 
     @GET(ApiConstant.MOVIE_UPCOMING)
     suspend fun getUpcomingMovies(
         @Query("page") page: Int = 1,
         @Query("include_adult") includeAdult: Boolean = false,
-        @Query("api_key") apiKey: String = ApiConstant.KEY,
     ): MovieResponseDto
 
     @GET(ApiConstant.MOVIE_TOP_RATED)
     suspend fun getTopRatedMovies(
         @Query("page") page: Int = 1,
         @Query("include_adult") includeAdult: Boolean = false,
-        @Query("api_key") apiKey: String = ApiConstant.KEY,
     ): MovieResponseDto
 
     @GET(ApiConstant.MOVIE_NOW_PLAYING)
     suspend fun getNowPlayingMovies(
         @Query("page") page: Int = 1,
         @Query("include_adult") includeAdult: Boolean = false,
-        @Query("api_key") apiKey: String = ApiConstant.KEY,
     ): MovieResponseDto
 
     @GET(ApiConstant.MOVIE_NOW_TRENDING)
     suspend fun getTrendingMovies(
         @Query("page") page: Int = 1,
         @Query("include_adult") includeAdult: Boolean = false,
-        @Query("api_key") apiKey: String = ApiConstant.KEY,
     ): MovieResponseDto
 
     @GET(ApiConstant.SEARCH_MOVIES)
@@ -49,14 +44,12 @@ interface RetrofitMovieService {
         @Query("page") page: Int = 1,
         @Query("query") searchParams: String,
         @Query("include_adult") includeAdult: Boolean = false,
-        @Query("api_key") apiKey: String = ApiConstant.KEY,
     ): MovieResponseDto
 
     @GET(ApiConstant.MOVIE)
     suspend fun getMovieDetails(
-        @Path("movie_id") movieId: Long = 646389,
+        @Path("movie_id") movieId: Long,
         @Query("include_adult") includeAdult: Boolean = false,
         @Query("page") page: Int = 1,
-        @Query("api_key") apiKey: String = ApiConstant.KEY,
     ): MovieDetailsDto
 }

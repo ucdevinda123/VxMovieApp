@@ -1,4 +1,4 @@
-package com.spore.vxmoviesapp.ui.components
+package com.spore.vxmoviesapp.ui.components.menubar
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
@@ -17,9 +17,8 @@ import androidx.compose.ui.unit.sp
 fun VxMenuBarItem(
     text: String,
     modifier: Modifier,
-    onMenuItemTap: (type: String) -> Unit
+    onMenuItemTap: (type: String) -> Unit,
 ) {
-
     Text(
         text = text,
         textAlign = TextAlign.Center,
@@ -28,13 +27,13 @@ fun VxMenuBarItem(
             fontWeight = FontWeight.Medium,
             shadow = Shadow(color = Color.White),
             fontSize = 16.sp,
-            color = Color.White
+            color = Color.White,
         ),
         modifier = modifier
             .padding(5.dp)
             .clickable {
                 onMenuItemTap(text)
-            }
+            },
 
     )
 }

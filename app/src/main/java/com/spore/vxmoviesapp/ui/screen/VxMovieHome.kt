@@ -1,6 +1,8 @@
 package com.spore.vxmoviesapp.ui.screen
 
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -10,7 +12,9 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -30,6 +34,7 @@ import com.spore.vxmoviesapp.ui.components.menubar.VxCategoryMenuBar
 import com.spore.vxmoviesapp.ui.viewmodel.HomeViewModel
 import com.spore.vxmoviesapp.ui.viewmodel.MainBannerViewModel
 import com.spore.vxmoviesapp.util.isNetworkAvailable
+import com.valentinilk.shimmer.shimmer
 
 @Composable
 fun VxMovieHome(
@@ -51,7 +56,7 @@ fun VxMovieHome(
             homeScreenScrollState.value > 0
         }
     }
-    Scaffold {
+    Scaffold { it ->
         Box(modifier = Modifier.fillMaxSize()) {
             Column(modifier = Modifier.verticalScroll(homeScreenScrollState)) {
                 MainMovieLayout()
@@ -114,6 +119,23 @@ fun MainMovieLayout(mainBannerViewModel: MainBannerViewModel = hiltViewModel()) 
                         top.linkTo(parent.top)
                     },
                 )
+            } else {
+                Box(
+                    modifier = Modifier.constrainAs(movieImage) {
+                        top.linkTo(parent.top)
+                    }
+                        .size(608.dp)
+                        .blur(15.dp)
+                        .background(Color.Transparent),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .blur(5.dp)
+                            .fillMaxSize()
+                            .background(Color.Transparent),
+                    )
+                }
             }
             VxTrendingTopTextBanner(
                 modifier = Modifier.constrainAs(topTrendingBanner) {
@@ -143,6 +165,7 @@ fun VxTopBar(
             .height(getVxTopBarHeightState(isScrollingDown).value),
         color = getVxTopBarColorState(isScrolledDown = isScrollingDown).value,
     ) {
+        val context = LocalContext.current
         TopAppBar(
             elevation = 0.dp,
             backgroundColor = Color.Transparent,
@@ -157,7 +180,9 @@ fun VxTopBar(
                 })
                 Spacer(modifier = Modifier.height(10.dp))
                 AnimatedVisibility(visible = isScrollingDown.not()) {
-                    VxCategoryMenuBar()
+                    VxCategoryMenuBar { type ->
+                        Toast.makeText(context, "To do implementation $type", Toast.LENGTH_LONG).show()
+                    }
                 }
             }
         }
