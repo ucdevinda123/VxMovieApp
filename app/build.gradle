@@ -9,14 +9,14 @@ plugins {
 }
 
 android {
-    compileSdk 34
+    compileSdk 35
     namespace 'com.spore.vxmoviesapp'
 
     defaultConfig {
         minSdk 21
-        targetSdk 34
-        versionCode 16
-        versionName "1.0.13"
+        targetSdk 35
+        versionCode 23
+        versionName "1.0.23"
         applicationId "com.spore.vxmoviesapp.pilot"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -94,6 +94,8 @@ dependencies {
     implementation 'com.valentinilk.shimmer:compose-shimmer:1.2.0'
 
     testImplementation 'junit:junit:4.13.2'
+
+    implementation 'com.github.jeziellago:compose-markdown:0.4.1'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
