@@ -5,7 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.* // ktlint-disable no-wildcard-imports
 import androidx.compose.material.* // ktlint-disable no-wildcard-imports
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,7 +43,7 @@ fun VxAppBarWithBack(
             TopAppBar(
                 elevation = 0.dp,
                 backgroundColor = Color.Transparent,
-                modifier = Modifier.height(40.dp),
+                modifier = Modifier.height(56.dp),
             ) {
                 Column {
                     VxAppBarBackButton(navController, title)
@@ -61,16 +61,21 @@ fun VxAppBarBackButton(
     navController: NavHostController,
     text: String,
 ) {
-    Row(Modifier.padding(start = 1.dp)) {
+    Row(Modifier.padding(start = 16.dp, end = 16.dp)) {
         Box(
             modifier = Modifier
                 .weight(2f)
                 .align(Alignment.CenterVertically),
         ) {
-            IconButton(onClick = { navController.navigateUp() }) {
+            IconButton(
+                onClick = { navController.navigateUp() },
+                modifier = Modifier.size(48.dp)
+            ) {
                 Icon(
-                    imageVector = Icons.Filled.ArrowBack,
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
+                    tint = Color.White,
+                    modifier = Modifier.size(24.dp)
                 )
             }
         }

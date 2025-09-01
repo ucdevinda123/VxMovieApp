@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.spore.vxmoviesapp">
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -17,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VxMovieApp"
         android:name=".VxMovieApplication"
-        tools:targetApi="31">
+        android:targetSandboxVersion="2">
         <activity
             android:name=".MainActivity"
             android:exported="true"

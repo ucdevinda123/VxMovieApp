@@ -56,8 +56,8 @@ fun MovieDetails(navController: NavHostController, movieId: Long) {
         )
     }
 
-    Scaffold {
-        Box(modifier = Modifier.fillMaxSize()) {
+    Scaffold { paddingValues ->
+        Box(modifier = Modifier.fillMaxSize().padding(paddingValues)) {
             val homeScreenScrollState = rememberScrollState()
             Column(modifier = Modifier.verticalScroll(homeScreenScrollState)) {
                 ConstraintLayout {
@@ -268,7 +268,7 @@ fun MovieDetails(navController: NavHostController, movieId: Long) {
                     )
                 }
             }
-            VxAppBarWithBack(false, Modifier.padding(1.dp), navController, "")
+            VxAppBarWithBack(false, Modifier.padding(top = 0.dp), navController, "")
         }
     }
 }

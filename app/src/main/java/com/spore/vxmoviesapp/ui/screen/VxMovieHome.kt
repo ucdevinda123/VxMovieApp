@@ -56,8 +56,8 @@ fun VxMovieHome(
             homeScreenScrollState.value > 0
         }
     }
-    Scaffold { it ->
-        Box(modifier = Modifier.fillMaxSize()) {
+    Scaffold { paddingValues ->
+        Box(modifier = Modifier.fillMaxSize().padding(paddingValues)) {
             Column(modifier = Modifier.verticalScroll(homeScreenScrollState)) {
                 MainMovieLayout()
                 MovieListScreens(homeViewModel, onNavigateMovieDetails = {
@@ -169,10 +169,10 @@ fun VxTopBar(
         TopAppBar(
             elevation = 0.dp,
             backgroundColor = Color.Transparent,
-            modifier = Modifier.height(40.dp),
+            modifier = Modifier.height(56.dp),
         ) {
             Column {
-                Spacer(modifier = Modifier.height(5.dp))
+                Spacer(modifier = Modifier.height(8.dp))
                 VxAppBar(onSearchItemTap = {
                     onSearchItemTap()
                 }, onMyListItemTap = {

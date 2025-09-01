@@ -1,6 +1,7 @@
 package com.spore.vxmoviesapp.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
@@ -16,8 +17,12 @@ import com.spore.vxmoviesapp.ui.screen.VxMyList
 import com.spore.vxmoviesapp.util.isNetworkAvailable
 
 @Composable
-fun SetUpNavGraph(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = Screen.HomeScreen.route) {
+fun SetUpNavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
+    NavHost(
+        navController = navController, 
+        startDestination = Screen.HomeScreen.route,
+        modifier = modifier
+    ) {
         composable(route = Screen.HomeScreen.route) {
             val context = LocalContext.current
             VxMovieHome(

@@ -6,9 +6,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.List
+import androidx.compose.material.icons.automirrored.outlined.List
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,46 +25,45 @@ fun VxAppBar(
     onSearchItemTap: ()->Unit,
     onMyListItemTap: ()->Unit
 ) {
-    Row(Modifier.padding(start = 8.dp)) {
+    Row(
+        modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         Box(
             modifier = Modifier
                 .weight(6f)
                 .align(Alignment.CenterVertically)
         ) {
-            Image(painter = painterResource(
-                id = R.drawable.vx_icon_im
-            ),
+            Image(
+                painter = painterResource(id = R.drawable.vx_icon_im),
                 contentDescription = "App Bar",
                 modifier = Modifier
-                    .height(30.dp)
+                    .height(32.dp)
                     .clickable {}
             )
         }
-        Box(
-            modifier = Modifier
-                .weight(1f)
-                .align(Alignment.CenterVertically)
-                .clickable {
-                    onSearchItemTap()
-                }
+        
+        IconButton(
+            onClick = { onSearchItemTap() },
+            modifier = Modifier.size(48.dp)
         ) {
             Icon(
                 imageVector = Icons.Outlined.Search,
                 contentDescription = "Search",
-                tint = Color.White
+                tint = Color.White,
+                modifier = Modifier.size(24.dp)
             )
         }
 
-        Box(modifier = Modifier
-            .weight(1f)
-            .clickable {
-                onMyListItemTap()
-            }
+        IconButton(
+            onClick = { onMyListItemTap() },
+            modifier = Modifier.size(48.dp)
         ) {
             Icon(
-                imageVector = Icons.Outlined.List,
-                contentDescription = " My List",
-                tint = Color.White
+                imageVector = Icons.AutoMirrored.Outlined.List,
+                contentDescription = "My List",
+                tint = Color.White,
+                modifier = Modifier.size(24.dp)
             )
         }
     }
